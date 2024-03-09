@@ -7,7 +7,6 @@ namespace ErpSecurity.Infrastructure.Repositories
 {
     public class UserRepositoryAdapter : UserRepositoryPort
     {
-
         private readonly SecurityDbContext Context;
         private readonly IMapper Mapper;
 
@@ -21,6 +20,13 @@ namespace ErpSecurity.Infrastructure.Repositories
         {
             var user = Context.Users
                 .FirstOrDefault(u => u.Email == email) ?? throw new Exception("El usuario no existe.");
+            return Mapper.Map<User>(user);
+        }
+
+        public User Get(int id)
+        {
+            var user = Context.Users
+                .FirstOrDefault(u => u.Id == id) ?? throw new Exception("El usuario no existe.");
             return Mapper.Map<User>(user);
         }
     }

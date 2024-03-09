@@ -8,21 +8,17 @@ namespace ErpSecurity.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController(SignInUseCase signInUseCase, IMapper mapper) : ControllerBase
     {
-        private readonly SignInUseCase signInUseCase;
-        private readonly IMapper mapper;
-        public AuthController(SignInUseCase signInUseCase, IMapper mapper)
-        {
-            this.signInUseCase = signInUseCase;
-            this.mapper = mapper;
-        }
+        private readonly SignInUseCase signInUseCase = signInUseCase;
+        private readonly IMapper mapper = mapper;
 
         [HttpPost("Login")]
         public IActionResult Login([FromBody] SignInDTO login)
         {
             var input = mapper.Map<InputSignIn>(login);
-            return Ok(signInUseCase.Execute(input));
+            var authentication = signInUseCase.Execute(input);
+            return Ok(mapper.Map<ResponseAuthDTO>(authentication));
         }
     }
 }

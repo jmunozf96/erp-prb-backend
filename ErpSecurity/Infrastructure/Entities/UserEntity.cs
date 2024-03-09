@@ -15,7 +15,8 @@ namespace ErpSecurity.infrastructure.entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required, Key]
         public int Id { get; set; }
-        
+
+        [DataType(DataType.EmailAddress)]
         public required String Email { get; set; }
 
         public required String Name { get; set; }
