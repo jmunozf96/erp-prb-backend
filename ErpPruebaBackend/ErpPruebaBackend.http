@@ -1,0 +1,6 @@
+@ErpPruebaBackend_HostAddress = http://localhost:5007
+
+GET {{ErpPruebaBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
